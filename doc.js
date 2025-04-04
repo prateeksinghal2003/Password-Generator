@@ -1,4 +1,6 @@
+// Finds and stores the first HTML element that has the class "slider" in the variable inputslider.
 const inputslider=document.querySelector('.slider');
+
 const lengthdisplay=document.querySelector('.password-length');
 const pssdisplay=document.querySelector('.password_display');
 const copytext=document.querySelector('.copytext');
@@ -13,6 +15,9 @@ const circle=document.querySelector('.circle');
 const pssgen=document.querySelector('.password-generator');
 
 const allcheckbox=document.querySelectorAll('input[type=checkbox]');
+// Selects all <input> elements of type="checkbox".
+// const allcheckbox = ... → Stores the NodeList (a collection of elements) in allcheckbox.
+
 const symbol='!@#$%^&*()<>?/\|-=_`';
 
 
@@ -21,18 +26,29 @@ let psswordlen=10; //on reloading the page length field is 10
 
 //set password length
 handleslider();
+
+
+// #ccc is shorthand for #cccccc.
+// Since all three values are equal, #ccc is a shade of gray.
+
 setIndicator("#ccc");
 
 function handleslider()
 {
+    //slider uss value pe set hoga jo attribute "value" ke kender jo number define hain
     inputslider.value=psswordlen;
+
+    // Updates the innerText of lengthdisplay (a span, div, or paragraph) to show the current password length.
     lengthdisplay.innerText=psswordlen;
 
     const min=inputslider.min;
     const max=inputslider.max;
 
     inputslider.style.backgroundSize=((psswordlen-min)*100/(max-min)) + "% 100%";
-    //determinig the width
+    // This dynamically updates the slider's background fill based on the current slider value (psswordlen).
+
+
+    //determinig the width ,to see how much the slider has filled .
     //height is set to 100%
 
 }
@@ -91,6 +107,7 @@ function calStrength()
     let hasSym=false;
 
     //retreived uppercase checkbox and checked whether it is ticked or not
+    //checked is a predefined property of the <input type="checkbox"> element in JavaScript.
     if(uppercase.checked)
     {
         hasUC=true;
@@ -113,6 +130,8 @@ function calStrength()
 
     if(hasSym && hasNum && hasUC && hasLC )
     {
+        //shorthand notation for #00ff00
+        //red and blue is set to zero,
         setIndicator('#0f0');
     }
 
@@ -121,6 +140,11 @@ function calStrength()
         setIndicator('#f00');
     }
 }  
+
+
+// JavaScript normally doesn’t wait for tasks like fetching data or copying text.
+//  async/await makes JavaScript pause and wait until the task is finished.
+//  This makes the code easier to read and less complicated.
 
 
 
@@ -134,6 +158,7 @@ function calStrength()
                                                                  //in clipboard
         
           copytext.innerText="copied"; 
+          copytext.classList.add("active");
           console.log(copytext.innerText);                                               
                                                                  
          }                                                      
@@ -142,18 +167,24 @@ function calStrength()
                  copytext.innerText='failed';
           } 
 
+            setTimeout(()=>
+            {
+                 copytext.classList.remove("active");
 
-         //to make "copied" visible
-        //   copytext.classList.add("active");
+            },2000);
+
+
+
+            
           
-          setTimeout(()=>
-        {
-            copytext.classList.remove("active");
-        },200);
+
+         
 
     }    
 
     copyBtn.addEventListener("click", () => {
+        //JavaScript automatically converts the string into a boolean (truthy or falsy).
+        //empty string would be treated as falsy
         if (pssdisplay.value)
             copycontent();
     });
@@ -161,6 +192,10 @@ function calStrength()
 
 
         //type =input which means whenever we change the slider left or right
+
+        // e (event object) stores information about the event.
+        //  e.target points to the exact element that triggered the event.
+        //  e.target.value gets the updated value when the slider moves.
         inputslider.addEventListener('input',(e)=>
         {
              
@@ -168,12 +203,15 @@ function calStrength()
             handleslider();
         });
 
-        copytext.addEventListener("click",() =>
-        {
-                 if(pssdisplay.value)
-                    copycontent();
-        }
-    );
+
+        //muje iska use kuch lagaa nahi
+
+    //     copytext.addEventListener("click",() =>
+    //     {
+    //              if(pssdisplay.value)
+    //                 copycontent();
+    //     }
+    // );
 
    
 
@@ -192,7 +230,7 @@ function calStrength()
 
 // let sum = 0;
 // const numbers = [65, 44, 12, 4];
-// numbers.forEach(myFunction);
+// numbers.forEach(myFunction(elem));
 
 // function myFunction(item) 
 // {
@@ -206,9 +244,13 @@ allcheckbox.forEach((checkbox)=>
     checkbox.addEventListener('change',handlecheckBoxchange);
 });
 
+
+
 function handlecheckBoxchange()
 {
       checkboxcount=0;
+
+     //here i am counting the number of tick checkboxes 
     allcheckbox.forEach((checkbox)=>
     {
         if(checkbox.checked==true)
@@ -216,6 +258,7 @@ function handlecheckBoxchange()
             checkboxcount+=1;
         }
     })
+
 
     //one case  if password length is less than number of ticked boxes make it equal to no of checkboxes.
     if(psswordlen<checkboxcount)
@@ -228,16 +271,24 @@ function handlecheckBoxchange()
 
  pssgen.addEventListener('click',()=>
      {
+        
+        copytext.innerText=""; 
+        //ye isiliye kiya because  everytime i am clicking on generate password "copied" vala text should disappear
+
          if(checkboxcount<=0)
             {
                  return;
              }
+
+
+         
+        //iski need nahi lag rahi hai muje     
             
-           if(psswordlen<checkboxcount)
-             {
-                   psswordlen=checkboxcount;
-                   handleslider();
-             }
+        //    if(psswordlen<checkboxcount)
+        //      {
+        //            psswordlen=checkboxcount;
+        //            handleslider();
+        //      }
             
             
 
@@ -273,11 +324,7 @@ function handlecheckBoxchange()
        let funarr=[];
 
         //jin jin checkboxes par tick mark hoga vo toh call karna hi hai
-        if(uppercase.checked)
-            {
-             funarr.push(getUppererCase);
-            }
- 
+       
         if(lowercase.checked)
        {
          funarr.push(getLowerCase);
@@ -287,6 +334,12 @@ function handlecheckBoxchange()
          {
             funarr.push(getSymbol);
          }
+
+         if(uppercase.checked)
+            {
+             funarr.push(getUppererCase);
+            }
+ 
  
         if(numbers.checked)
         {
@@ -307,6 +360,9 @@ function handlecheckBoxchange()
      
  
 //shuffle the password
+
+//converting string(pssword) to array 
+//where each element would be a character
  pssword=shuffle(Array.from(pssword));
 pssdisplay.value=pssword;
 calStrength();
@@ -324,6 +380,14 @@ calStrength();
     
       for(let i=arr.length-1;i>0;i--)
       {
+
+        // Generates a random index j between 0 and i (inclusive).
+        // Math.random() gives a number between 0 and 1.
+        // Math.random() * (i + 1) scales it to a valid index range (from 0 to i).
+        // Math.floor() ensures we get a whole number.
+        
+        // Example: If i = 4, j could be 0, 1, 2, 3, or 4.  
+
         let j=Math.floor(Math.random()*(i+1));
 
         let temp=arr[i];

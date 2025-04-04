@@ -33,20 +33,65 @@ Note: This prevents the value of the width property from becoming larger than ma
 
 body
 {
+    
+   /* vw (viewport width) and vh (viewport height) are relative units in CSS that adjust based on the size of the viewport
+   (the visible area of the browser window).
+   vw (Viewport Width)
+   1vw = 1% of the width of the browser window.
+   100vw = Full width of the viewport. */
+
+   /* vh (Viewport Height)
+  1vh = 1% of the height of the viewport.
+  100vh = Full height of the viewport. */
+
     width: 100vw;
     height: 100vh;
 
     display: flex;
-    flex-direction: column;
-    align-items: center;
+     flex-direction: column;
+
+    /*align-items: center; aligns all child elements in the center of the cross-axis.
+     Cross-axis direction depends on flex-direction:
+
+     flex-direction: row; → Aligns items vertically (default).
+     flex-direction: column; → Aligns items horizontally.
+     flex-direction: column; → Stacks items vertically (from top to bottom).
+
+     align-items: center; → Centers items horizontally (since the cross-axis is now left to right).
+     justify-content: center; → Centers items vertically (along the main axis, which is now  top to bottom). */
+
+
+    align-items: center; 
     justify-content: center;
+
+    /* rgba(r, g, b, a)
+
+    r, g, b → Red, Green, Blue (0–255 values).
+    a → Alpha (opacity, where 1 is fully visible, 0 is fully transparent). */
+
     background: linear-gradient(231deg, rgba(22,6,40,1) 0%, rgba(52,28,79,1) 50%,rgba(88,7,125,1)100%);
 }
+
+/* By default, a <button> has styles like:
+
+Background color
+Padding & margin
+Border
+Font styles
+Hover & focus effects
+Cursor style
+With all: unset;, the button loses all these styles and behaves like a plain text element.
+
+ The button has a background color, padding, and pointer cursor.
+ After Applying all: unset;
+ The button loses all styles and looks like regular text. */
+
 
 button {
     all: unset;
     cursor: pointer;
   }
+
 
 .conatiner
 {
@@ -54,6 +99,7 @@ button {
     width: 90%;
     max-width: 450px;
 }
+
 h1
 {
     opacity: 0.75;
@@ -94,7 +140,11 @@ h1
 .password_display::placeholder
 {
     position: absolute;
-    top: 50%;
+
+    /* Moves the element’s top edge 32% down from its nearest positioned parent (relative)
+    Moves the element’s left edge 1.5rem to the right from the parent. */
+
+    top: 32%;
     left: 1.5rem;
     font-size: 1.5rem;
     line-height: 30px;
@@ -127,9 +177,10 @@ h1
 .length-container
 {
     display: flex;
+      /* flex-direction: row; */
     justify-content: space-between;
     align-items: center;
-    flex-direction: row;
+  
 }
 
 
@@ -178,6 +229,12 @@ h1
   background-color: hsl(285,91%,52%);
   text-align: center;
   border-radius: 0.75rem;
+
+  /* border-bottom → Applies a border only to the bottom of the element.
+   0.35rem → The thickness of the border (1rem = root font size, usually 16px, so 0.35rem = 5.6px).
+   solid → The border style (a continuous line).
+   hsl(52,100%,62%) → The border color, using the HSL color model. */
+   
   border-bottom: 0.35rem solid  hsl(52,100%,62%);
   letter-spacing: 1px;
   font-family: 600;
@@ -213,7 +270,7 @@ h1
 }
 
 
-.check input:checked::before
+.check input:checked::after
 {
     content:'✓';
     position: absolute;
@@ -230,10 +287,20 @@ h1
 {
     color: hsl(0,0%,100%);
     font-size: 1.25rem;
-    letter-spacing: 0.75px;
+    letter-spacing: 2px;
 }
 
-.slider
+.copytext {
+    opacity:0; /* Initially hidden */
+    transition: opacity 3s ease-out; /* Smooth fade effect */
+}
+
+.copytext.active {
+    opacity: 1; /* Fully visible */
+    transition: opacity 1s;
+}
+
+/* .slider
 {
     width: 100%;
     appearance: none;
@@ -248,27 +315,28 @@ h1
 .slider:hover
 {
     cursor: pointer;
-}
+} */
 
 /* to access slider thumb*/
 
-.slider::-webkit-slider-thumb
-{
-    position: relative; /* to make slider thumb over the outline*/
-    appearance: none;
+/* .slider::-webkit-slider-thumb
+{ 
+    /* position: relative; */
+    /* to make slider thumb over the outline*/
+
+    /* appearance: none;
     height: 2rem;
     width: 2rem;
     border-radius: 50%;
     background-color: yellow;
-    margin-top: -3px;
-    
+    margin-top: -3px; */
+     
     /* box-shadow: 0px 0px 0px 20px rgba(255,229,61,0.50); */
-    transition: all 100ms ease-in;
- 
+    /* transition: all 100ms ease-in;*/
 
-}
+/*} */
 
-.slider:focus
+/* .slider:focus
 {
     outline: 3px solid  hsl(52,100%,62%);
     
@@ -277,10 +345,10 @@ h1
 .slider::-webkit-slider-thumb:hover
 {
     outline: 2px solid  hsl(52,100%,62%);
-    background-color:hsl(268,75%,9%);
+    background-color:hsl(268,75%,9%); */
     /* box-shadow:0px 0px 25px 5px rgba(255,229,61,0.8); */
 
-}
+/*}*/
 
 
-/* for copy text and image see--mini proj---1:55*/
+/* for copy text and image see--mini proj---1:55 */
